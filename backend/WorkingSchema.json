@@ -1,0 +1,196 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AccountRequestAgent-165 API",
+    "description": "An API for creating and updating Account requests",  
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/serviceNowRequest": {
+      "post": {
+        "summary": "Create a Service Now request",
+        "description": "Creates a Generic Service now Request from user details",
+        "parameters": [
+          {
+            "name": "emailAddress",
+            "in": "query",
+            "description": "Email Address of requestor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fullName",
+            "in": "query",
+            "description": "Full Name of requestor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AppID",
+            "in": "query",
+            "description": "Name of the AWS Account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "RequestDetails",
+            "in": "query",
+            "description": "Full length details of the service being requested",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "BillingCode",
+            "in": "query",
+            "description": "Account Billing Code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AccountID",
+            "in": "query",
+            "description": "AWS Account ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request Creation Completed Successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_number": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/validateRequest": {
+      "post": {
+        "summary": "Validate AppID and BillingCode",
+        "description": "Validates the AppID and BillingCode entries before other requests",
+        "parameters": [
+          {
+            "name": "AppID",
+            "in": "query",
+            "description": "Application ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AccountDescription",
+            "in": "query",
+            "description": "Full length description of the Account requested",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "BillingCode",
+            "in": "query",
+            "description": "Account Billing Code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validation Completed Successfuly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid_billing": {
+                      "type": "string"
+                    },
+                    "valid_appID": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/createAccountRequest": {
+      "post": {
+        "summary": "Create a new Account request",
+        "description": "Creates an Account with the AppID, AccountDescription, BillingCode, and returns the Account ID",
+        "parameters": [
+          {
+            "name": "AppID",
+            "in": "query",
+            "description": "Name of the Account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AccountDescription",
+            "in": "query",
+            "description": "Full length description of the Account requested",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "BillingCode",
+            "in": "query",
+            "description": "Account Billing Code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account request created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "AccountID": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
